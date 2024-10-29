@@ -9,8 +9,10 @@ class Region extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     public function restaurants()
     {
-        $this->hasMany(Restaurant::class);
+        return $this->hasMany(Restaurant::class);
     }
 }

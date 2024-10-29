@@ -2,44 +2,32 @@
 <html lang="ja">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Attendance Management</title>
-  <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/common.css') }}">
-  @yield('css')
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>@yield('title')</title>
 </head>
 
 <body>
-  <header class="header">
-    <div class="header__inner">
-      <div class="header-utilities">
-        <a class="header__logo" href="/">
-          Attendance Management
-        </a>
-        <nav>
-          <ul class="header-nav">
-            @if (Auth::check())
-            <li class="header-nav__item">
-              <a class="header-nav__link" href="/mypage">マイページ</a>
-            </li>
-            <li class="header-nav__item">
-              <form class="form" action="/logout" method="post">
-                @csrf
-                <button class="header-nav__button">ログアウト</button>
-              </form>
-            </li>
-            @endif
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </header>
+    <header>
+        <h1>Header</h1>
+    </header>
 
-  <main>
-    @yield('content')
-  </main>
+    <nav class="navbar">
+        <h3>Rise</h3>
+    </nav>
+
+    <div class="container">
+        @yield('content')
+    </div>
+
+    <footer>
+        <h1>Footer</h1>
+    </footer>
+
 </body>
 
 </html>

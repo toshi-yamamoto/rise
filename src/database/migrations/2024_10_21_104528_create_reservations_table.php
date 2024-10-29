@@ -17,7 +17,8 @@ class CreateReservationsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('restaurant_id')->constrained('restaurants')->onDelete('cascade');
-            $table->dateTime('reservation_date');
+            $table->date('reservation_date');
+            $table->time('reservation_time');
             $table->integer('number_of_people');
             $table->string('reservation_status');
             $table->timestamps();

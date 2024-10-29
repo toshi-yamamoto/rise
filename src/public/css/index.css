@@ -1,0 +1,8 @@
+.heart-icon i {
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.heart-icon .text-danger {
+    color: red !important;
+}
