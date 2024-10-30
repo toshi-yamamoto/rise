@@ -7,10 +7,10 @@
 @endsection
 
 @section('content')
-    <div class="container mt-4">
+    <div class="mt-4">
         <div class="row">
             @foreach ($restaurants as $restaurant)
-                <div class="card col-md-4 mb-4">
+                <div class="card col-md-4 mb-4"style="width: 18rem;">
                     <img src="{{ asset($restaurant->image_url) }}" class="card-img-top" alt="{{ $restaurant->name }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $restaurant->name }}</h5>

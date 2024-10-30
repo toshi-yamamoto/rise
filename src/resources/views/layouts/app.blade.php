@@ -11,16 +11,19 @@
     <title>@yield('title')</title>
 </head>
 
-<body>
+<body class="container">
     <header>
         <h1>Header</h1>
     </header>
 
     <nav class="navbar">
-        <h3>Rise</h3>
+        <a class="navbar-brand" href="#">
+            <img src="{{ asset('images/menu_icon.png') }}" alt="メニュー" style="width: 30px; height: 30px;">
+            Rise
+        </a>
     </nav>
 
-    <div class="container">
+    <div>
         @yield('content')
     </div>
 

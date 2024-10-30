@@ -1,17 +1,21 @@
-head
+header
 {
-    background-color: #f5f5f5;
+    background-color: white !important;
 }
 
-body {
+/* body {
     background-color: #e5e2e2b8;
-}
+} */
 
-.navbar
+/* .navbar
 {
     background-color: #e5e2e2b8;
-}
+} */
 
 .container {
     background-color: #e5e2e2b8;
+}
+
+footer {
+    background-color: white !important;
 }
