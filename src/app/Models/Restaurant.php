@@ -15,25 +15,21 @@ class Restaurant extends Model
 
     public function reservations()
     {
-        // レストランは複数の予約を持つ
         return $this->hasMany(Reservation::class);
     }
 
     public function favorites()
     {
-        // レストランは複数のユーザーのお気に入りに登録される
-        return $this->hasMany(Favorite::class);
+        return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
     }
 
     public function region()
     {
-        // レストランは１つの地域に属する
         return $this->belongsTo(Region::class);
     }
 
     public function genre()
     {
-        // レストランは１つのジャンルに属する
         return $this->belongsTo(Genre::class);
     }
 

@@ -20,22 +20,22 @@ class Reservation extends Model
 
     public function user()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function restaurant()
     {
-        $this->belongsTo(Restaurant::class);
+        return $this->belongsTo(Restaurant::class);
     }
 
-    public function createReservation(array $data)
+    public function createReservation(int $userId, int $restaurantId, string $reservationDate, string $reservationTime, int $numberOfPeople)
     {
         return Reservation::create([
-            'user_id' => $data['user_id'],
-            'restaurant_id' => $data['restaurant_id'],
-            'reservation_date' => $data['reservation_date'],
-            'reservation_time' => $data['reservation_time'],
-            'number_of_people' => $data['number_of_people'],
+            'user_id' => $userId,
+            'restaurant_id' => $restaurantId,
+            'reservation_date' => $reservationDate,
+            'reservation_time' => $reservationTime,
+            'number_of_people' => $numberOfPeople,
             'reservation_status' => '予約中',
         ]);
     }

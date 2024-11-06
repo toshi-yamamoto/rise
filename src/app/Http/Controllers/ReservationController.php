@@ -6,25 +6,29 @@ use Illuminate\Http\Request;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 
+
 class ReservationController extends Controller
 {
     public function store(Request $request)
     {
-        // dd($request->all());
-        // $reservation = new Reservation();
-        // $reservation->user_id = 1;
-        // $reservation->restaurant_id = $request->restaurant_id;
-        // $reservation->reservation_date = $request->reservation_date;
-        // $reservation->reservation_time = $request->reservation_time;
-        // $reservation->number_of_people = $request->number_of_people;
-        // $reservation->reservation_status = '予約中';
-        // $reservation->save();
+        $userId = Auth::id();
+        $restaurantId = $request->restaurant_id;
+        $reservationDate = $request->reservation_date;
+        $reservationTime = $request->reservation_time;
+        $numberOfPeople = $request->number_of_people;
 
-        $data = $request->all();
-        $data['user_id'] = Auth::id();
-        $data['reservation_status'] = '予約中';
-        Reservation::createReservation($data);
+        Reservation::createReservation($userId, $restaurantId, $reservationDate, $reservationTime, $numberOfPeople);
 
         return redirect()->route('reservations.done');
+    }
+
+    public function delete(Reservation $reservation)
+    {
+        if ($reservation->user_id === Auth::id()) {
+            $reservation->delete();
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false, 'message' => '削除に失敗しました'], 403);
     }
 }

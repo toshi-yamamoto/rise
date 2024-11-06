@@ -20,7 +20,7 @@ class RestaurantController extends Controller
     {
         $restaurants = Restaurant::getRestaurantById($id);
 
-        return view('restaurants.show', compact('restaurants'));
+        return view('restaurants.detail', compact('restaurants'));
     }
 
 }
