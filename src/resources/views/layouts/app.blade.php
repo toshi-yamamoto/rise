@@ -22,6 +22,34 @@
             <img src="{{ asset('images/menu_icon.png') }}" alt="メニュー" style="width: 30px; height: 30px;">
             Rise
         </a>
+
+        @if(Route::currentRouteName() === 'restaurants.index')
+        <form action="{{ route('restaurants.index') }}" method="GET" class="search-form">
+            @csrf
+            <div class="search-container">
+                <!-- エリアの選択 -->
+                <select name="region" id="region">
+                    <option value="">All Areas</option>
+                    @foreach($regions as $region)
+                        <option value="{{ $region->id }}" {{ request('region') == $region->id ? 'selected' : '' }}>{{ $region->name }}
+                        </option>
+                    @endforeach
+                </select>
+                <!-- ジャンルの選択 -->
+                <select name="genre" id="genre">
+                    <option value="">All genres</option>
+                    @foreach($genres as $genre)
+                        <option value="{{ $genre->id }}" {{ request('genre') == $genre->id ? 'selected' : ''}}>{{ $genre->name }}
+                        </option>
+                    @endforeach
+                </select>
+                <!-- キーワード入力 -->
+                <input type="text" name="keyword" placeholder="Search...." value="{{ request('keyword') }}">
+                <!--検索ボタン-->
+                <button type="submit">Search</button>
+            </div>
+        </form>
+        @endif
     </nav>
 
     <div>

@@ -9,18 +9,38 @@ use App\Models\Region;
 
 class RestaurantController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $restaurants = Restaurant::getAllRestaurants();
+        $query = Restaurant::query();
 
-        return view('restaurants.index', compact('restaurants'));
+        if ($request->filled('region')) {
+            $query->where('region_id', $request->input('region'));
+        }
+
+        if ($request->filled('genre')) {
+            $query->where('genre_id', $request->input('genre'));
+        }
+
+        if ($request->filled('keyword')) {
+            $query->where('name', 'like', '%' . $request->input('keyword') . '%');
+        }
+
+        $restaurants = $query->get();
+
+        $regions = Region::all();
+        $genres = Genre::all();
+
+        return view('restaurants.index', compact('restaurants', 'regions', 'genres'));
     }
 
     public function show($id)
     {
         $restaurants = Restaurant::getRestaurantById($id);
 
-        return view('restaurants.detail', compact('restaurants'));
+        $regions = Region::all();
+        $genres = Genre::all();
+
+        return view('restaurants.detail', compact('restaurants', 'regions', 'genres'));
     }
 
 }

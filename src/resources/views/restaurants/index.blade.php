@@ -10,7 +10,7 @@
 @section('content')
     <div class="mt-4">
         <div class="row">
-            @foreach ($restaurants as $restaurant)
+            @forelse ($restaurants as $restaurant)
                 <div class="card col-md-4 mb-4" style="width: 18rem;">
                     <img src="{{ asset($restaurant->image_url) }}" class="card-img-top" alt="{{ $restaurant->name }}">
                     <div class="card-body">
@@ -23,11 +23,12 @@
                         </button>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <p>該当するレストランはありません</p>
+            @endforelse
         </div>
     </div>
 
-    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).on('click', '.favorite-btn', function() {
@@ -48,9 +49,10 @@
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.log("Error callback reached");
-                    console.log(xhr.responseText);
+                    // console.log("Error callback reached");
+                    // console.log(xhr.responseText);
                     alert('お気に入りの登録に失敗しました。ログインが必要です。');
+                    window.loacation.href = '{{ route("login") }}'
                 }
             });
         });

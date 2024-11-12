@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Reservation extends Model
 {
@@ -38,5 +39,13 @@ class Reservation extends Model
             'number_of_people' => $numberOfPeople,
             'reservation_status' => '予約中',
         ]);
+    }
+
+    public function deleteReservation()
+    {
+        if ($this->user_id === Auth::id()) {
+            return $this->delete();
+        }
+        return false;
     }
 }
