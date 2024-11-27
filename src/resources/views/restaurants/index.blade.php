@@ -12,7 +12,7 @@
         <div class="row">
             @forelse ($restaurants as $restaurant)
                 <div class="card col-md-4 mb-4" style="width: 18rem;">
-                    <img src="{{ asset($restaurant->image_url) }}" class="card-img-top" alt="{{ $restaurant->name }}">
+                    <img src="{{ asset('storage/' . $restaurant->image_url) }}" class="card-img-top" alt="{{ $restaurant->name }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $restaurant->name }}</h5>
                         <p class="card-text">#{{ $restaurant->region->name }} #{{ $restaurant->genre->name }}</p>

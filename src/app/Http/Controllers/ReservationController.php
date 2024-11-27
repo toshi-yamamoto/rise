@@ -7,11 +7,12 @@ use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Region;
 use App\Models\Genre;
+use App\Http\Requests\ReservationRequest;
 
 
 class ReservationController extends Controller
 {
-    public function store(Request $request)
+    public function store(ReservationRequest $request)
     {
         $userId = Auth::id();
         $restaurantId = $request->restaurant_id;

@@ -18,10 +18,10 @@
     </header>
 
     <nav class="navbar">
-        <a class="navbar-brand" href="#">
-            <img src="{{ asset('images/menu_icon.png') }}" alt="メニュー" style="width: 30px; height: 30px;">
-            Rise
+        <a class="navbar-brand" href="{{ route('menu') }}">
+            <img src="{{ asset('images/menu_icon.png') }}" alt="Menu Icon" style="width: 30px; height: 30px;">
         </a>
+        <h3>Rise</h3>
 
         @if(Route::currentRouteName() === 'restaurants.index')
         <form action="{{ route('restaurants.index') }}" method="GET" class="search-form">

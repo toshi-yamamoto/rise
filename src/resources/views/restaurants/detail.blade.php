@@ -11,7 +11,7 @@
         <div class="col-md-6">
             <a href="{{ route('restaurants.index') }}" class="btn btn-primary">&lt; 戻る</a>
             <h3>{{ $restaurants->name }}</h3>
-            <img src="{{ asset($restaurants->image_url) }}" class="img-fluid mb-3" alt="{{ $restaurants->name }}">
+            <img src="{{ asset('storage/' . $restaurants->image_url) }}" class="img-fluid mb-3" alt="{{ $restaurants->name }}">
             <p>#{{ $restaurants->region->name }} #{{ $restaurants->genre->name }}</p>
             <p>{{ $restaurants->description }}</p>
         </div>

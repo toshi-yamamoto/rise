@@ -43,4 +43,19 @@ class RestaurantController extends Controller
         return view('restaurants.detail', compact('restaurants', 'regions', 'genres'));
     }
 
+    public function create()
+    {
+        $regions = Region::all();
+        $genres = Genre::all();
+
+        return view('restaurants.create', compact('regions', 'genres'));
+    }
+
+    public function store(Request $request)
+    {
+        Restaurant::createWithImage($request->only(['name', 'region_id', 'genre_id', 'description']), $request->file('image'));
+
+        return redirect()->route('restaurants.index')->with('success', 'レストランが正常に作成されました');
+    }
+
 }

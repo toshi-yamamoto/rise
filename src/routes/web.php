@@ -6,6 +6,7 @@ use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,10 +18,26 @@ use App\Http\Controllers\UserController;
 |
 */
 
-
+// レストラン一覧と詳細
 Route::get('/', [RestaurantController::class, 'index'])->name('restaurants.index');
+
+// レストラン作成用ルート
+Route::middleware('auth')->group(function () {
+    Route::get('/restaurants/create', [RestaurantController::class, 'create'])->name('restaurants.create');
+    Route::post('/restaurants', [RestaurantController::class, 'store'])->name('restaurants.store');
+});
+
 Route::get('/restaurants/{id}', [RestaurantController::class, 'show'])->name('restaurants.detail');
 
+// メニュー表示
+Route::get('/menu', function () {
+    if (Auth::check()) {
+        return view('menu1');
+    }
+    return view('menu2');
+})->name('menu');
+
+// 認証が必要なルート
 Route::middleware('auth')->group(function () {
     Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
 
@@ -33,7 +50,13 @@ Route::middleware('auth')->group(function () {
     Route::post('restaurants/{restaurant}/favorite', [FavoriteController::class, 'toggleFavorite'])->name('restaurants.favorite');
 
     Route::post('/reservations/{reservation}/delete', [ReservationController::class, 'delete'])->name('reservations.delete');
+
 });
 
+// ログアウト用ルート
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
 
 
