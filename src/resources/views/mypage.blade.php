@@ -29,7 +29,7 @@
                     @foreach ($favorites as $favorite)
                         <div class="col-md-6">
                             <div class="card mb-4">
-                                <img src="{{ $favorite->restaurant->image_url }}" class="card-img-top" alt="{{ $favorite->restaurant->name }}">
+                                <img src="{{ 'storage/' . $favorite->restaurant->image_url }}" class="card-img-top" alt="{{ $favorite->restaurant->name }}">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $favorite->restaurant->name }}</h5>
                                     <p class="card-text">#{{ $favorite->restaurant->region->name }} #{{ $favorite->restaurant->genre->name }}</p>

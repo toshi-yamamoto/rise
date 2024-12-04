@@ -21,21 +21,22 @@ class Favorite extends Model
         return $this->belongsTo(Restaurant::class);
     }
 
-    public function toggleFavorite(int $userId, int $restaurantId)
+    public static function toggleFavorite(int $userId, int $restaurantId): bool
     {
-        $favorite = Favorite::where('user_id', $userId)
+        $favorite = self::where('user_id', $userId)
             ->where('restaurant_id', $restaurantId)
             ->first();
 
         if ($favorite) {
             $favorite->delete();
             return false;
-        } else {
-            Favorite::create([
-                'user_id' => $userId,
-                'restaurant_id' => $restaurantId,
-            ]);
-            return true;
         }
+
+        self::create([
+            'user_id' => $userId,
+            'restaurant_id' => $restaurantId,
+        ]);
+        return true;
     }
+
 }

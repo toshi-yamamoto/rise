@@ -8,7 +8,7 @@
 
 @section('content')
 
-<form action="{{ route('restaurants.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('owners.restaurants.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <label for="name"> Restaurant Name:</label>
     <input type="text" name="name" id="name" required>

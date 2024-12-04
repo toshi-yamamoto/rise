@@ -10,6 +10,10 @@ class Reservation extends Model
 {
     use HasFactory;
 
+    const STATUS_PENDING = '予約中';
+    const STATUS_CONFIRMED = '確定';
+    const STATUS_CANCELLED = 'キャンセル済み';
+
     protected $fillable = [
         'user_id',
         'restaurant_id',
@@ -29,9 +33,9 @@ class Reservation extends Model
         return $this->belongsTo(Restaurant::class);
     }
 
-    public function createReservation(int $userId, int $restaurantId, string $reservationDate, string $reservationTime, int $numberOfPeople)
+    public static function createReservation(int $userId, int $restaurantId, string $reservationDate, string $reservationTime, int $numberOfPeople)
     {
-        return Reservation::create([
+        return self::create([
             'user_id' => $userId,
             'restaurant_id' => $restaurantId,
             'reservation_date' => $reservationDate,

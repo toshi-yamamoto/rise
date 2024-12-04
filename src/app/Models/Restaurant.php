@@ -18,7 +18,13 @@ class Restaurant extends Model
         'region_id',
         'genre_id',
         'description',
+        'owner_id',
     ];
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
 
     public function reservations()
     {

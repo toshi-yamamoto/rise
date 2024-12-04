@@ -22,6 +22,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Restaurant::class, 'favorites')->withTimestamps();
     }
 
+    public function restaurants()
+    {
+        return $this->hasMany(Restaurant::class, 'owner_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -31,6 +36,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
