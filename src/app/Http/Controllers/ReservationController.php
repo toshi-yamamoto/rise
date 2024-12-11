@@ -7,13 +7,19 @@ use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Region;
 use App\Models\Genre;
-use App\Http\Requests\ReservationRequest;
 
 
 class ReservationController extends Controller
 {
-    public function store(ReservationRequest $request)
+    public function store(Request $request)
     {
+        $request->validate([
+            'restaurant_id' => 'required|exists:restaurants,id',
+            'reservation_date' => 'required|date|after_or_equal:today',
+            'reservation_time' => 'required|date_format:H:i',
+            'number_of_people' => 'required|integer|min:1',
+        ]);
+
         $userId = Auth::id();
         $restaurantId = $request->restaurant_id;
         $reservationDate = $request->reservation_date;

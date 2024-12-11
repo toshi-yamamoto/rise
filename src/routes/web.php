@@ -57,14 +57,17 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout');
 
+// Admin用ルート
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/owners', [AdminController::class, 'listOwners'])->name('admin.owners');
     Route::get('/admin/owners/create', [AdminController::class, 'showCreateForm'])->name('admin.owners.create');
     Route::post('/admin/owners/create', [AdminController::class, 'createOwner'])->name('admin.owners.store');
-    // Route::post('/admin/owners', [AdminController::class, 'store'])->name('admin.owners.store');
+    Route::get('/admin/register', [AdminController::class, 'showRegisterForm'])->name('admin.register');
+    Route::post('/admin/register', [AdminController::class, 'register'])->name('admin.store');
 });
 
+// オーナー用ルート
 Route::middleware(['auth', 'role:owner'])->group(function () {
     Route::get('/owners/dashboard', [OwnerController::class, 'dashboard'])->name('owners.dashboard');
     Route::get('/owners/restaurants/create', [OwnerController::class, 'showCreateForm'])->name('owners.restaurants.create');

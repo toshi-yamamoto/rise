@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -13,20 +14,17 @@
 </head>
 
 <body class="container">
-    <header>
-        <h1>Header</h1>
-    </header>
 
     <nav class="navbar">
         <a class="navbar-brand" href="{{ route('menu') }}">
             <img src="{{ asset('images/menu_icon.png') }}" alt="Menu Icon" style="width: 30px; height: 30px;">
         </a>
-        <h3>Rise</h3>
+        <h3 class="m-0 flex-grow-1 text-primary">Rise</h3>
 
         @if(Route::currentRouteName() === 'restaurants.index')
         <form action="{{ route('restaurants.index') }}" method="GET" class="search-form">
             @csrf
-            <div class="search-container">
+            <div class="search-container position-relative ms-n3">
                 <!-- エリアの選択 -->
                 <select name="region" id="region">
                     <option value="">All Areas</option>
@@ -55,10 +53,6 @@
     <div>
         @yield('content')
     </div>
-
-    <footer>
-        <h1>Footer</h1>
-    </footer>
 
 </body>
 

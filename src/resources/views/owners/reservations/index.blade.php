@@ -1,44 +1,60 @@
 @extends('layouts.app')
 
-@section('title', '予約一覧')
+@section('title', 'ショップ一覧')
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+
+@endsection
 
 @section('content')
-    <div class="container">
-        <h1>予約一覧</h1>
+    <div class="mt-4">
+        <div class="row">
+            @forelse ($restaurants as $restaurant)
+                <div class="card col-md-4 mb-4" style="width: 18rem;">
+                    <img src="{{ asset('storage/' . $restaurant->image_url) }}" class="card-img-top img-fluid" alt="{{ $restaurant->name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $restaurant->name }}</h5>
+                        <p class="card-text">#{{ $restaurant->region->name }} #{{ $restaurant->genre->name }}</p>
+                        <a href="{{ route('restaurants.detail', ['id' => $restaurant->id]) }}" class="btn btn-primary">詳しくみる</a>
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>店舗名</th>
-                    <th>予約日</th>
-                    <th>予約時間</th>
-                    <th>人数</th>
-                    <th>ユーザー</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($reservations as $reservation)
-                    <tr>
-                        <td>{{ $reservation->id }}</td>
-                        <td>{{ $reservation->restaurant->name }}</td>
-                        <td>{{ $reservation->reservation_date }}</td>
-                        <td>{{ $reservation->reservation_time }}</td>
-                        <td>{{ $reservation->number_of_people }}</td>
-                        <td>{{ $reservation->user->name }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" class="text-center">予約はありません</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+                        <button class="favorite-btn btn btn-link" data-restaurant-id="{{ $restaurant->id }}">
+                            <i class="heart-icon {{ auth()->user() && auth()->user()->favorites->contains($restaurant->id) ? 'filled' : '' }}">heart-icon</i>
+                        </button>
+                    </div>
+                </div>
+            @empty
+                <p>該当するレストランはありません</p>
+            @endforelse
+        </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).on('click', '.favorite-btn', function() {
+            var restaurantId = $(this).data('restaurant-id');
+            var icon = $(this).find('.heart-icon');
+
+            $.ajax({
+                url: `/restaurants/${restaurantId}/favorite`,
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function(response) {
+                    if (response.added) {
+                        icon.addClass('filled');
+                    } else {
+                        icon.removeClass('filled');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // console.log("Error callback reached");
+                    // console.log(xhr.responseText);
+                    alert('お気に入りの登録に失敗しました。ログインが必要です。');
+                    window.loacation.href = '{{ route("login") }}'
+                }
+            });
+        });
+    </script>
 @endsection

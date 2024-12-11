@@ -1,21 +1,10 @@
-header
-{
-    background-color: white !important;
-}
-
-/* body {
-    background-color: #e5e2e2b8;
-} */
-
-/* .navbar
-{
-    background-color: #e5e2e2b8;
-} */
-
 .container {
     background-color: #e5e2e2b8;
 }
 
-footer {
-    background-color: white !important;
+.search-container {
+    position: relative;
+    /* 必要に応じて左方向にずらす */
+    left: -160px;
+    /* 左に20px移動 */
 }

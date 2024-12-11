@@ -1,0 +1,26 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+}
+
+button {
+    border: none;
+    font-size: 1.5rem;
+    color: #0d6efd;
+    background: transparent;
+    text-align: left;
+}
+
+a {
+    color: #0d6efd;
+    text-decoration: none;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+

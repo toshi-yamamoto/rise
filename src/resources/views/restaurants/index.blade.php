@@ -17,10 +17,10 @@
                         <h5 class="card-title">{{ $restaurant->name }}</h5>
                         <p class="card-text">#{{ $restaurant->region->name }} #{{ $restaurant->genre->name }}</p>
                         <a href="{{ route('restaurants.detail', ['id' => $restaurant->id]) }}" class="btn btn-primary">詳しくみる</a>
-
                         <button class="favorite-btn btn btn-link" data-restaurant-id="{{ $restaurant->id }}">
-                            <i class="heart-icon {{ auth()->user() && auth()->user()->favorites->contains($restaurant->id) ? 'filled' : '' }}">heart-icon</i>
-                        </button>
+                            {{-- <i class="heart-icon {{ auth()->user() && auth()->user()->favorites->contains($restaurant->id) ? 'filled' : '' }}">heart-icon</i> --}}
+                        <img src="{{ asset(auth()->user() && auth()->user()->favorites->contains($restaurant->id) ? 'images/heart_color.svg' : 'images/heart.svg') }}" class="heart-icon" alt="Favorite">
+                    </button>
                     </div>
                 </div>
             @empty
@@ -43,9 +43,11 @@
                 },
                 success: function(response) {
                     if (response.added) {
-                        icon.addClass('filled');
+                        // icon.addClass('filled');
+                        icon.attr('src', '{{ asset('images/heart_color.svg') }}');
                     } else {
-                        icon.removeClass('filled');
+                        // icon.removeClass('filled');
+                        icon.attr('src', '{{ asset('images/heart.svg') }}');
                     }
                 },
                 error: function(xhr, status, error) {

@@ -33,8 +33,11 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $favorite->restaurant->name }}</h5>
                                     <p class="card-text">#{{ $favorite->restaurant->region->name }} #{{ $favorite->restaurant->genre->name }}</p>
-                                    <button class="btn btn-link favorite-btn" data-restaurant-id="{{ $favorite->restaurant->id }}">
+                                    {{-- <button class="btn btn-link favorite-btn" data-restaurant-id="{{ $favorite->restaurant->id }}">
                                         <i class="heart-icon filled" >heart-icon</i>
+                                    </button> --}}
+                                    <button class="btn btn-link favorite-btn" data-restaurant-id="{{ $favorite->restaurant->id }}">
+                                        <img src="{{ asset('images/heart_color.svg') }}" class="heart-icon filled" alt="Favorite">
                                     </button>
                                     <a href="{{ route('restaurants.detail', $favorite->restaurant->id) }}" class="btn btn-primary">詳しくみる</a>
                                 </div>
@@ -80,9 +83,11 @@
                 },
                 success: function(response) {
                     if (response.added) {
-                        icon.addClass('filled');
+                        // icon.addClass('filled');
+                        icon.attr('src', '{{ asset('images/heart_color.svg') }}');
                     } else {
-                        icon.removeClass('filled');
+                        // icon.removeClass('filled');
+                        icon.attr('src', '{{ asset('images/heart.svg') }}');
                     }
                 },
                 error: function(xhr, status, error) {
