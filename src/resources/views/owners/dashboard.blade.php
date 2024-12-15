@@ -7,7 +7,7 @@
         <h1>店舗代表者ダッシュボード</h1>
 
         <!-- 店舗作成ボタン -->
-        <a href="{{ route('owners.restaurants.create') }}" class="btn btn-primary mb-3">新しい店舗を作成</a>
+        <a href="{{ route('restaurants.create') }}" class="btn btn-primary mb-3">新しい店舗を作成</a>
 
         @if ($restaurants->isEmpty())
             <p>現在、管理している店舗はありません。</p>

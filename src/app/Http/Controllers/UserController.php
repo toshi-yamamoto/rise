@@ -13,12 +13,6 @@ class UserController extends Controller
 {
     public function showMypage()
     {
-        // $userId = Auth::id();
-        // $reservations = Reservation::where('user_id', $userId)->with('restaurant')->get();
-        // $favorites = Favorite::where('user_id', $userId)->with('restaurant')->get();
-        // $regions = Region::all();
-        // $genres = Genre::all();
-
         $user = Auth::user();
 
         if ($user->role === 'admin') {

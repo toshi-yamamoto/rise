@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateOwnerRequest;
+use App\Http\Requests\RegisterAdminRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -19,14 +21,8 @@ class AdminController extends Controller
         return view('admin.owners.index', compact('owners'));
     }
 
-    public function createOwner(Request $request)
+    public function createOwner(CreateOwnerRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-
         User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -47,14 +43,8 @@ class AdminController extends Controller
         return view('admin.register');
     }
 
-    public function register(Request $request)
+    public function register(RegisterAdminRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-
         User::create([
             'name' => $request->name,
             'email' => $request->email,

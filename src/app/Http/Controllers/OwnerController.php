@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRestaurantRequest;
+use App\Http\Requests\UpdateRestaurantRequest;
 use Illuminate\Http\Request;
 use App\Models\Restaurant;
 use App\Models\Reservation;
@@ -26,29 +28,8 @@ class OwnerController extends Controller
         return view('owners.reservations.index', compact('reservations'));
     }
 
-    // public function createRestaurant(Request $request)
-    // {
-    //     Restaurant::create([
-    //         'name' => $request->name,
-    //         'region_id' => $request->region_id,
-    //         'genre_id' => $request->genre_id,
-    //         'description' => $request->description,
-    //         'owner_id' => Auth::id(),
-    //     ]);
-
-    //     return redirect()->route('owners.dashboard')->with('success', '店舗情報が作成されました');
-    // }
-
-    public function store(Request $request)
+    public function store(StoreRestaurantRequest $request)
     {
-        $request->validate([
-            'name' => 'required|max:255',
-            'region_id' => 'required|exists:regions,id',
-            'genre_id' => 'required|exists:genres,id',
-            'description' => 'required',
-            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
-
         $imagePath = null;
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('restaurants', 'public');
@@ -63,7 +44,6 @@ class OwnerController extends Controller
             'image_url' => $imagePath,
         ]);
 
-        // リダイレクト
         return redirect()->route('owners.dashboard')->with('success', '新規レストランが登録されました');
     }
 
@@ -79,16 +59,8 @@ class OwnerController extends Controller
         return view('owners.restaurants.edit', compact('restaurant', 'regions', 'genres'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateRestaurantRequest $request, $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'region_id' => 'required|exists:regions,id',
-            'genre_id' => 'required|exists:genres,id',
-            'description' => 'required',
-            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
         $restaurant = Restaurant::where('id', $id)
             ->where('owner_id', Auth::id())
             ->firstOrFail();
